@@ -1,4 +1,18 @@
- window.onload = () => { 
+ window.onload = () => {
+    document.addEventListener('keydown',e =>{
+        let tecla = e.key
+        console.log(tecla)
+        switch(tecla){
+            case 'd':
+            case 'ArrowRight':
+                person.rigth();
+                break;
+            case 'a' :
+            case 'ArrowLeft' :
+                person.left();
+                break;
+        }
+    })
     const canvas = {
         element: document.getElementById('my-game'),
         width: 400,
@@ -8,7 +22,7 @@
 
     let Start = setInterval(() => {
        updateCanvas(); 
-    }, 200);
+    }, 10);
     updateCanvas= () => {
         clearCanvas();
         background();
@@ -27,7 +41,7 @@
             this.y = 790 ;
             this.w = 8 ;
             this.h = 8 ;
-            this.speed = 10 ;
+            this.speed = 15 ;
         };
         draw = () => {
             ctx.fillStyle = 'white';
@@ -39,127 +53,132 @@
                clearCanvas();
                background();
                this.draw(); 
-            }, 100);
+            }, 60);
             setTimeout(() => {
                 this.y -= this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 200);
-             setTimeout(() => {
+            }, 120);
+            setTimeout(() => {
                 this.y -= this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 300);
-             setTimeout(() => {
+            }, 180);
+            setTimeout(() => {
                 this.y -= this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 400);
-             setTimeout(() => {
+            }, 240);
+            setTimeout(() => {
                  this.y -= this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 500);
-              setTimeout(() => {
+            }, 300);
+            setTimeout(() => {
                  this.y -= this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 600);
-              setTimeout(() => {
+            }, 360);
+            setTimeout(() => {
                 this.y -= this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 700);
-             setTimeout(() => {
+            }, 420);
+            setTimeout(() => {
                 this.y -= this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 800);
-             setTimeout(() => {
+            }, 480);
+            setTimeout(() => {
                  this.y -= this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 900);
-              setTimeout(() => {
+            }, 540);
+            setTimeout(() => {
                  this.y -= this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1000);
-              setTimeout(() => {
+            }, 600);
+            setTimeout(() => {
                 this.y += this.speed;
                 clearCanvas();
                 background();
                 this.draw(); 
-             }, 1100);
-             setTimeout(() => {
+            }, 660);
+            setTimeout(() => {
                  this.y += this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1200);
-              setTimeout(() => {
+            }, 720);
+            setTimeout(() => {
                  this.y += this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1300);
-              setTimeout(() => {
+            }, 780);
+            setTimeout(() => {
                  this.y += this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1400);
-              setTimeout(() => {
+            }, 840);
+            setTimeout(() => {
                   this.y += this.speed;
                   clearCanvas();
                   background();
                   this.draw(); 
-               }, 1500);
-               setTimeout(() => {
+            }, 900);
+            setTimeout(() => {
                   this.y += this.speed;
                   clearCanvas();
                   background();
                   this.draw(); 
-               }, 1600);
-               setTimeout(() => {
+            }, 960);
+            setTimeout(() => {
                  this.y += this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1700);
-              setTimeout(() => {
+            }, 1020);
+            setTimeout(() => {
                  this.y += this.speed;
                  clearCanvas();
                  background();
                  this.draw(); 
-              }, 1800);
-              setTimeout(() => {
+            }, 1080);
+            setTimeout(() => {
                   this.y += this.speed;
                   clearCanvas();
                   background();
                   this.draw(); 
-               }, 1900);
-               setTimeout(() => {
+            }, 1140);
+            setTimeout(() => {
                   this.y += this.speed;
                   clearCanvas();
                   background();
                   this.draw(); 
-               }, 2000);
-              
+            }, 1200);   
+        }
+        left = () => {
+            this.x -= this.speed
+        }
+        rigth = () => {
+            this.x += this.speed
         }
     };
     const person = new Person
     setInterval(() => {
         person.jump();
-    }, 2100);  
+    }, 1250);  
     updateCanvas();
  }
