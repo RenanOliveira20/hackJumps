@@ -1,7 +1,6 @@
  window.onload = () => {
     document.addEventListener('keydown',e =>{
         let tecla = e.key
-        console.log(tecla)
         switch(tecla){
             case 'd':
             case 'ArrowRight':
@@ -27,6 +26,7 @@
         clearCanvas();
         background();
         person.draw();
+       // refreshPlataform();
     }
     clearCanvas = () => {
         ctx.clearRect(0 , 0 , canvas.width, canvas.height)
@@ -180,5 +180,39 @@
     setInterval(() => {
         person.jump();
     }, 1250);  
+    class Plataform {
+        constructor(x){
+            this.x = x;
+            this.y = 720;
+            this.width = 80;
+            this.height = 20;
+            this.speed = 15;
+        };
+        draw = () => {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        };
+        move = () => {
+            if(person.y < 690){
+                this.y -= 690 - person.y
+            }
+        }
+    }
+   // createPlataform = () => {
+   //     let aleatoryX = Math.floor(Math.random() * 400) + 1;
+   //     let distanceOfPlataforms = Math.floor(Math.random() * 400)+ 80 + 1
+   //     const plataform = new Plataform(aleatoryX, this.y)
+   //     plataforms.push(plataform)
+   //     const plataformBrother = new Plataform(aleatoryX + distanceOfPlataforms, this.y);
+   //     plataforms.push(plataformBrother);
+   //     this.y -= 50;
+   // }
+   // let plataforms = [];
+   // refreshPlataform = () => {
+   //     if (plataforms.length === 0){
+   //     createPlataform();
+   //     }
+   // }    
+//
     updateCanvas();
  }
