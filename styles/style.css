@@ -1,0 +1,20 @@
+.game {
+    margin: 0;
+    width: 400px;
+    height: 800px;
+    background-color: black;
+    border: 1px solid red;
+    position: relative;
+}
+.person {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    position: absolute;
+}
+.plataform {
+    width: 70px;
+    height: 15px;
+    background-color: green;
+    position: absolute;
+}
