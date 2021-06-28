@@ -11,24 +11,20 @@ const person ={
         width: 10,
         heigth: 10,
     },
+    jumps : {
+        maxHeigth: 190,
+        minHeigth: 50,
+    },
     moveRigth () {
         person.atributes.personLeft += person.atributes.speed;
+        element.style.left = person.atributes.personLeft + 'px'
     },
     moveLeft () {
         person.atributes.personLeft -= person.atributes.speed;
+        element.style.left = person.atributes.personLeft + 'px'
     },
-    left(){
-        return person.atributes.personLeft
-    },
-    rigth (){
-        return this.left + person.atributes.width
-    },
-    bottom(){
-        return person.atributes.personBottom
-    },
-
 }
-function control (e) {
+document.addEventListener('keydown',(e) => {
     let tecla = e.key
     switch(tecla){
         case 'd':
@@ -40,8 +36,7 @@ function control (e) {
             person.moveLeft();
             break;
     }
-}
-
+})
 
 let numberOfPlataforms = 15;
 let plataforms = []
@@ -49,7 +44,6 @@ let plataforms = []
 function refreshGame () {
     createPerson();
     createPlataform();
-    setInterval(movePlataforms,30);
     jump();
     checkContact()
 };
@@ -65,7 +59,7 @@ function jump () {
     timer = setInterval(function (){
         person.atributes.personBottom += person.atributes.speed;
         element.style.bottom = person.atributes.personBottom + 'px';
-        if(person.atributes.personBottom > 190 ){
+        if(person.atributes.personBottom > person.jumps.maxHeigth ){
             down();
             console.log(plataforms)
         };
@@ -76,10 +70,25 @@ function down () {
     downTimer = setInterval(function () {
         person.atributes.personBottom -= 5;
         element.style.bottom = person.atributes.personBottom + 'px'
-        if(person.atributes.personBottom <= 50){
+        //
+        if(person.atributes.personBottom <= person.jumps.minHeigth){
             jump()
-
         }
+        plataforms.forEach((plt) =>{
+            if(
+                (person.atributes.personBottom >= plt.bottom) &&
+                (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
+                (person.atributes.personLeft >= plt.left ) &&
+                (person.atributes.personLeft <= plt.left + plt.width)
+            ){
+                if(person.atributes.personBottom < 400){
+                person.jumps.minHeigth = plt.bottom + plt.heigth
+                person.jumps.maxHeigth = person.jumps.minHeigth + 140 
+            }else{
+                movePlataforms()               
+            }
+        }
+        })
     },30)
 }
 class Plataform {
@@ -90,6 +99,7 @@ class Plataform {
         this.width = 70;
         this.element = document.createElement('div');
         this.speed = 15;
+        //
         const plataform = this.element;
         plataform.classList.add('plataform');
         plataform.style.left = this.left + 'px';
@@ -104,19 +114,19 @@ function createPlataform () {
     }
 };
 function movePlataforms () {
-    if(person.atributes.personBottom > 200){
+    if(person.atributes.personBottom > 300){
         plataforms.forEach (plt =>{
-            plt.bottom -= plt.speed;
+            plt.bottom -= 20;
             let estilo = plt.element;
-            estilo.style.bottom = plt.bottom + 'px'
+            estilo.style.bottom = plt.bottom + 'px';
             
-        })
+        });
     }
 };
 function checkContact (){
     plataforms.forEach(plt => {
-        if (plt.bottom === person.atributes.personBottom){
-            
+        if (plt.bottom <= person.atributes.personBottom && person.atributes.left >= plt.left){
+            console.log('bati')
         }
     })
 }
@@ -124,5 +134,4 @@ setInterval(function(){
     checkContact();
 },10)
 refreshGame();
-console.log(plataforms)
 })
