@@ -3,16 +3,17 @@ const gameArea = document.querySelector('.game');
 const element = document.createElement('div');
 let timer 
 let downTimer
+let game 
 const person ={
     atributes : {
         speed: 10,
         personBottom : 50, 
-        personLeft : 195,
-        width: 10,
-        heigth: 10,
+        personLeft : 180,
+        width: 40,
+        heigth: 30,
     },
     jumps : {
-        maxHeigth: 190,
+        maxHeigth: 150,
         minHeigth: 50,
     },
     moveRigth () {
@@ -45,7 +46,6 @@ function refreshGame () {
     createPerson();
     createPlataform();
     jump();
-    checkContact()
 };
 
 function createPerson () {
@@ -61,7 +61,7 @@ function jump () {
         element.style.bottom = person.atributes.personBottom + 'px';
         if(person.atributes.personBottom > person.jumps.maxHeigth ){
             down();
-            console.log(plataforms)
+            console.log(person.atributes.personBottom)
         };
         },30);
 };
@@ -73,19 +73,18 @@ function down () {
         //
         if(person.atributes.personBottom <= person.jumps.minHeigth){
             jump()
+            console.log(person.atributes.personBottom)
         }
         plataforms.forEach((plt) =>{
             if(
                 (person.atributes.personBottom >= plt.bottom) &&
                 (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
-                (person.atributes.personLeft >= plt.left ) &&
+                (person.atributes.personLeft >= plt.left - 30) &&
                 (person.atributes.personLeft <= plt.left + plt.width)
             ){
                 if(person.atributes.personBottom < 400){
-                person.jumps.minHeigth = plt.bottom + plt.heigth
-                person.jumps.maxHeigth = person.jumps.minHeigth + 140 
-            }else{
-                movePlataforms()               
+                person.jumps.minHeigth = plt.bottom + plt.heigth 
+                person.jumps.maxHeigth = person.jumps.minHeigth + 150 
             }
         }
         })
@@ -96,7 +95,7 @@ class Plataform {
         this.bottom = b ;
         this.left = Math.floor(Math.random() * 330);
         this.heigth = 15;
-        this.width = 70;
+        this.width = 80;
         this.element = document.createElement('div');
         this.speed = 15;
         //
@@ -108,30 +107,66 @@ class Plataform {
     };
 };
 function createPlataform () {
-    for ( let i = 0; i < numberOfPlataforms ; i +=1 ){
+    for ( let i = plataforms.length; i < numberOfPlataforms ; i +=1 ){
         let plataform = new Plataform( 100 + i * 50 );
         plataforms.push(plataform);
+        console.log(plataforms)
     }
 };
-function movePlataforms () {
-    if(person.atributes.personBottom > 300){
-        plataforms.forEach (plt =>{
-            plt.bottom -= 20;
-            let estilo = plt.element;
-            estilo.style.bottom = plt.bottom + 'px';
-            
-        });
-    }
-};
-function checkContact (){
-    plataforms.forEach(plt => {
-        if (plt.bottom <= person.atributes.personBottom && person.atributes.left >= plt.left){
-            console.log('bati')
+function deletePlataforms(){
+    plataforms.forEach(plt =>{
+        if(plt.bottom < 50){
+            plt.element.remove()
+            plataforms.shift();
+            createPlataform();
         }
     })
 }
-setInterval(function(){
-    checkContact();
-},10)
+function movePlataforms () {
+    if(person.atributes.personBottom > 300){
+    plataforms.forEach (plt =>{
+        if((person.atributes.personBottom >= plt.bottom) &&
+        (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
+        (person.atributes.personLeft >= plt.left - 30) &&
+        (person.atributes.personLeft <= plt.left + plt.width)){
+            for(let i = 0; i < plataforms.length; i += 1){
+            plataforms[i].bottom -= 15;
+            let estilo = plataforms[i].element;
+            estilo.style.bottom = plataforms[i].bottom + 'px';
+            }
+
+        };
+        if(
+            !(person.atributes.personBottom >= plt.bottom) &&
+            (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
+            (person.atributes.personLeft >= plt.left - 20) &&
+            (person.atributes.personLeft <= plt.left + plt.width)){
+                person.jumps.minHeigth -= 5 ;
+            }
+    })
+}
+};
+function youLose (){
+    if(person.atributes.personBottom < 50 ){
+        return true
+    }
+}
+function deleteGame () {
+    let plataforms = document.querySelectorAll('.plataform');
+    let person = document.querySelector('.person')
+    gameArea.remove(plataforms);
+    gameArea.remove(person);
+    clearInterval(game)
+}
+
+game = setInterval(() => {
+    if(!youLose()){
+    }else{
+        deleteGame();
+    }
+    
+    movePlataforms()
+    deletePlataforms()
+}, 50);
 refreshGame();
 })
