@@ -1,20 +1,50 @@
+.game-area{
+    width: 1900px;
+    height: 900px;
+    background-color:rgba(32, 27, 27, 0.603);
+   display: flex; 
+   padding-left: 40px;
+}
+.game-area > div > h1 {
+    font-family:cursive;
+    font-size: 3em;
+    color: white;
+    border-bottom: 5px solid rgb(248, 58, 58);
+}
+.game-area > div > h2{
+    font-size: 2.5em;
+    color: white;
+    
+}
+.game-area > div > h3{
+    font-size: 2em;
+    color: white;
+}
+p{
+    margin-left: 30px;
+        font-size:1.2em;
+    color: white;
+}
 .game {
-    margin: 0;
-    width: 400px;
+    margin-top: 80px;
+    margin-left: 620px;
+    width: 540px;
     height: 800px;
-    background-color: black;
-    border: 1px solid red;
+    background-image: url(https://tse3.mm.bing.net/th?id=OIP.B749u3Lnnp1LyVrvt-rlmAHaEo&pid=Api&P=0&w=274&h=172);
     position: relative;
 }
 .person {
-    width: 40px;
-    height: 30px;
-    background-color: blue;
+    width: 50px;
+    height: 50px;
+    background-image: url(https://www.infosecisland.com/uploads/remoteimg/149ed18313750dc344f0cc09e3b53278.jpg);
+    background-repeat: no-repeat ;
+    background-size: 50px;
     position: absolute;
 }
 .plataform {
-    width: 70px;
-    height: 15px;
-    background-color: green;
+    width: 100px;
+    height: 10px;
+    background-color: darkred;
     position: absolute;
+    border-radius: 30%;
 }

@@ -8,9 +8,9 @@ const person ={
     atributes : {
         speed: 10,
         personBottom : 50, 
-        personLeft : 180,
-        width: 40,
-        heigth: 30,
+        personLeft : 175,
+        width: 50,
+        heigth: 50,
     },
     jumps : {
         maxHeigth: 150,
@@ -39,7 +39,7 @@ document.addEventListener('keydown',(e) => {
     }
 })
 
-let numberOfPlataforms = 15;
+let numberOfPlataforms = 14;
 let plataforms = []
 
 function refreshGame () {
@@ -49,6 +49,7 @@ function refreshGame () {
 };
 
 function createPerson () {
+    
     gameArea.appendChild(element);
     element.classList.add('person');
     element.style.left = person.atributes.personLeft + 'px';
@@ -61,7 +62,6 @@ function jump () {
         element.style.bottom = person.atributes.personBottom + 'px';
         if(person.atributes.personBottom > person.jumps.maxHeigth ){
             down();
-            console.log(person.atributes.personBottom)
         };
         },30);
 };
@@ -73,7 +73,6 @@ function down () {
         //
         if(person.atributes.personBottom <= person.jumps.minHeigth){
             jump()
-            console.log(person.atributes.personBottom)
         }
         plataforms.forEach((plt) =>{
             if(
@@ -94,8 +93,8 @@ class Plataform {
     constructor(b){
         this.bottom = b ;
         this.left = Math.floor(Math.random() * 330);
-        this.heigth = 15;
-        this.width = 80;
+        this.heigth = 10;
+        this.width = 70;
         this.element = document.createElement('div');
         this.speed = 15;
         //
@@ -110,7 +109,6 @@ function createPlataform () {
     for ( let i = plataforms.length; i < numberOfPlataforms ; i +=1 ){
         let plataform = new Plataform( 100 + i * 50 );
         plataforms.push(plataform);
-        console.log(plataforms)
     }
 };
 function deletePlataforms(){
@@ -123,7 +121,7 @@ function deletePlataforms(){
     })
 }
 function movePlataforms () {
-    if(person.atributes.personBottom > 300){
+    if(person.atributes.personBottom > 200){
     plataforms.forEach (plt =>{
         if((person.atributes.personBottom >= plt.bottom) &&
         (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
