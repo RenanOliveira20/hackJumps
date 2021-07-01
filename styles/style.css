@@ -46,7 +46,7 @@ p{
 .plataform {
     width: 100px;
     height: 10px;
-    background-color: darkred;
+    background-color: green;
     position: absolute;
     border-radius: 30%;
 }
@@ -76,4 +76,11 @@ p{
 .titlle-controls{
     font-size: 1.4em;
     color:black;
+}
+.floor{
+    width: 540px;
+    height: 15px;
+    background-image: url(https://thumbs.dreamstime.com/b/circuitos-integrados-verdes-de-um-computador-com-fundo-preto-os-181290522.jpg);
+    position: absolute;
+    background-size: 100px;
 }

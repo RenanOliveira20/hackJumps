@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 const gameArea = document.querySelector('.game');
 const element = document.createElement('div');
+let thisFloor = document.createElement('div');
 let timer 
 let downTimer
 let game 
 const person ={
     atributes : {
         speed: 10,
-        personBottom : 50, 
+        personBottom : 15, 
         personLeft : 175,
         width: 50,
         heigth: 50,
@@ -24,6 +25,11 @@ const person ={
         person.atributes.personLeft -= person.atributes.speed;
         element.style.left = person.atributes.personLeft + 'px'
     },
+}
+const floor = {
+    width: 540,
+    height: 50,
+    bottom:0,
 }
 document.addEventListener('keydown',(e) => {
     let tecla = e.key
@@ -43,6 +49,7 @@ let numberOfPlataforms = 14;
 let plataforms = []
 
 function refreshGame () {
+    createFloor();
     createPerson();
     createPlataform();
     jump();
@@ -102,9 +109,16 @@ class Plataform {
         plataform.classList.add('plataform');
         plataform.style.left = this.left + 'px';
         plataform.style.bottom = this.bottom + 'px';
-        gameArea.appendChild(plataform)
+        gameArea.appendChild(plataform);
     };
 };
+function createFloor (){
+    
+    thisFloor.classList.add('floor');
+    thisFloor.style.bottom = floor.bottom + 'px';
+    gameArea.appendChild(thisFloor);
+
+}
 function createPlataform () {
     for ( let i = plataforms.length; i < numberOfPlataforms ; i +=1 ){
         let plataform = new Plataform( 100 + i * 50 );
@@ -113,12 +127,15 @@ function createPlataform () {
 };
 function deletePlataforms(){
     plataforms.forEach(plt =>{
-        if(plt.bottom < 50){
+        if(plt.bottom < 15){
             plt.element.remove()
             plataforms.shift();
             createPlataform();
         }
-    })
+    });
+    if(floor.bottom < 0){
+        thisFloor.remove()
+    }
 }
 function movePlataforms () {
     if(person.atributes.personBottom > 200){
@@ -127,6 +144,8 @@ function movePlataforms () {
         (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
         (person.atributes.personLeft >= plt.left - 30) &&
         (person.atributes.personLeft <= plt.left + plt.width)){
+            floor.bottom -= 15
+            thisFloor.style.bottom = floor.bottom + 'px'
             for(let i = 0; i < plataforms.length; i += 1){
             plataforms[i].bottom -= 15;
             let estilo = plataforms[i].element;
@@ -145,7 +164,7 @@ function movePlataforms () {
 }
 };
 function youLose (){
-    if(person.atributes.personBottom < 50 ){
+    if(person.atributes.personBottom < 15 ){
         return true
     }
 }
