@@ -1,10 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-const gameArea = document.querySelector('.game');
+const gameArea = document.querySelector('.game-area');
+const myStartGame = document.querySelector('.start-game');
 const element = document.createElement('div');
+let background = document.createElement('div');
 let thisFloor = document.createElement('div');
-let timer 
-let downTimer
-let game 
+let timer ;
+let downTimer;
+let game; 
+myStartGame.addEventListener('click', () => {
+    refreshGame();
+});
+function refreshGame () {
+    createBackground();
+    createFloor();
+    createPerson();
+    createPlataform();
+    jump();
+};
+function createBackground (){
+    gameArea.appendChild(background);
+    background.classList.add('gaming');
+    background.style.bottom = 0  + 'px';  
+};
 const person ={
     atributes : {
         speed: 10,
@@ -25,14 +42,14 @@ const person ={
         person.atributes.personLeft -= person.atributes.speed;
         element.style.left = person.atributes.personLeft + 'px'
     },
-}
+};
 const floor = {
     width: 540,
-    height: 50,
+    height: 15,
     bottom:0,
-}
+};
 document.addEventListener('keydown',(e) => {
-    let tecla = e.key
+    let tecla = e.key;
     switch(tecla){
         case 'd':
         case 'ArrowRight':
@@ -42,28 +59,18 @@ document.addEventListener('keydown',(e) => {
         case 'ArrowLeft' :
             person.moveLeft();
             break;
-    }
-})
-
+    };
+});
 let numberOfPlataforms = 14;
-let plataforms = []
-
-function refreshGame () {
-    createFloor();
-    createPerson();
-    createPlataform();
-    jump();
-};
-
+let plataforms = [];
 function createPerson () {
-    
-    gameArea.appendChild(element);
+    background.appendChild(element);
     element.classList.add('person');
     element.style.left = person.atributes.personLeft + 'px';
     element.style.bottom = person.atributes.personBottom + 'px';
 };
 function jump () {
-    clearInterval(downTimer)
+    clearInterval(downTimer);
     timer = setInterval(function (){
         person.atributes.personBottom += person.atributes.speed;
         element.style.bottom = person.atributes.personBottom + 'px';
@@ -73,14 +80,13 @@ function jump () {
         },30);
 };
 function down () {
-    clearInterval(timer)
+    clearInterval(timer);
     downTimer = setInterval(function () {
         person.atributes.personBottom -= 5;
-        element.style.bottom = person.atributes.personBottom + 'px'
-        //
+        element.style.bottom = person.atributes.personBottom + 'px';
         if(person.atributes.personBottom <= person.jumps.minHeigth){
-            jump()
-        }
+            jump();
+        };
         plataforms.forEach((plt) =>{
             if(
                 (person.atributes.personBottom >= plt.bottom) &&
@@ -89,13 +95,13 @@ function down () {
                 (person.atributes.personLeft <= plt.left + plt.width)
             ){
                 if(person.atributes.personBottom < 400){
-                person.jumps.minHeigth = plt.bottom + plt.heigth 
-                person.jumps.maxHeigth = person.jumps.minHeigth + 150 
-            }
-        }
-        })
-    },30)
-}
+                person.jumps.minHeigth = plt.bottom + plt.heigth ;
+                person.jumps.maxHeigth = person.jumps.minHeigth + 150; 
+            };
+        };
+        });
+    },30);
+};
 class Plataform {
     constructor(b){
         this.bottom = b ;
@@ -104,39 +110,36 @@ class Plataform {
         this.width = 100;
         this.element = document.createElement('div');
         this.speed = 15;
-        //
         const plataform = this.element;
         plataform.classList.add('plataform');
         plataform.style.left = this.left + 'px';
         plataform.style.bottom = this.bottom + 'px';
-        gameArea.appendChild(plataform);
+        background.appendChild(plataform);
     };
 };
-function createFloor (){
-    
+function createFloor (){    
     thisFloor.classList.add('floor');
     thisFloor.style.bottom = floor.bottom + 'px';
-    gameArea.appendChild(thisFloor);
-
-}
+    background.appendChild(thisFloor);
+};
 function createPlataform () {
     for ( let i = plataforms.length; i < numberOfPlataforms ; i +=1 ){
         let plataform = new Plataform( 100 + i * 50 );
         plataforms.push(plataform);
-    }
+    };
 };
 function deletePlataforms(){
     plataforms.forEach(plt =>{
         if(plt.bottom < 15){
-            plt.element.remove()
+            plt.element.remove();
             plataforms.shift();
             createPlataform();
-        }
+        };
     });
     if(floor.bottom < 0){
-        thisFloor.remove()
-    }
-}
+        thisFloor.remove();
+    };
+};
 function movePlataforms () {
     if(person.atributes.personBottom > 200){
     plataforms.forEach (plt =>{
@@ -144,14 +147,13 @@ function movePlataforms () {
         (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
         (person.atributes.personLeft >= plt.left - 30) &&
         (person.atributes.personLeft <= plt.left + plt.width)){
-            floor.bottom -= 15
-            thisFloor.style.bottom = floor.bottom + 'px'
+            floor.bottom -= 15;
+            thisFloor.style.bottom = floor.bottom + 'px';
             for(let i = 0; i < plataforms.length; i += 1){
             plataforms[i].bottom -= 15;
             let estilo = plataforms[i].element;
             estilo.style.bottom = plataforms[i].bottom + 'px';
-            }
-
+            };
         };
         if(
             !(person.atributes.personBottom >= plt.bottom) &&
@@ -159,31 +161,29 @@ function movePlataforms () {
             (person.atributes.personLeft >= plt.left - 20) &&
             (person.atributes.personLeft <= plt.left + plt.width)){
                 person.jumps.minHeigth -= 5 ;
-            }
-    })
-}
+            };
+    });
+};
 };
 function youLose (){
     if(person.atributes.personBottom < 15 ){
-        return true
-    }
-}
+        return true;
+    };
+};
 function deleteGame () {
     let plataforms = document.querySelectorAll('.plataform');
-    let person = document.querySelector('.person')
+    let person = document.querySelector('.person');
     gameArea.remove(plataforms);
     gameArea.remove(person);
-    clearInterval(game)
-}
+    clearInterval(game);
+};
 
 game = setInterval(() => {
     if(!youLose()){
     }else{
         deleteGame();
-    }
-    
-    movePlataforms()
-    deletePlataforms()
+    };
+    movePlataforms();
+    deletePlataforms();
 }, 50);
-refreshGame();
-})
+});
