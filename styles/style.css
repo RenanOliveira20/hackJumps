@@ -1,5 +1,5 @@
 .game-area{
-    width: 1900px;
+    width: 1300px;
     height: 900px;
     background-color:rgba(32, 27, 27, 0.603);
    display: flex; 
@@ -10,24 +10,26 @@
     font-size: 3em;
     color: white;
     border-bottom: 5px solid rgb(248, 58, 58);
+    width: 400px;
 }
 .game-area > div > h2{
     font-size: 2.5em;
     color: white;
     
 }
-.game-area > div > h3{
+.game-area > div > div > h3{
     font-size: 2em;
     color: white;
 }
 p{
-    margin-left: 30px;
-        font-size:1.2em;
+    margin-left: 50px;
+    font-size:1.2em;
     color: white;
+    width: 450px;
 }
 .game {
     margin-top: 80px;
-    margin-left: 620px;
+    margin-left: 50px;
     width: 540px;
     height: 800px;
     background-image: url(https://tse3.mm.bing.net/th?id=OIP.B749u3Lnnp1LyVrvt-rlmAHaEo&pid=Api&P=0&w=274&h=172);
@@ -47,4 +49,31 @@ p{
     background-color: darkred;
     position: absolute;
     border-radius: 30%;
+}
+.wasd {
+    width: 430px;
+    height: 150px;
+    background-image: url(http://sburngdl.weebly.com/uploads/8/8/9/0/88900840/arrow_orig.png);
+    background-size: 450px;
+    margin-left: 30px;
+    background-position-x: -10px;
+}
+.start-game{
+    margin-top: 10px;
+    margin-left: 90px;
+    width: 290px;
+    height: 70px;
+    background-image: url(https://msmjamie.files.wordpress.com/2015/01/press-start-600x375.jpg);
+    background-size: 400px;
+    background-position-x: -55px;
+    background-position-y: -90px;
+    border-radius: 45px;
+}
+.controls-text{
+    text-align: center;
+    margin-left: 15px;
+}
+.titlle-controls{
+    font-size: 1.4em;
+    color:black;
 }

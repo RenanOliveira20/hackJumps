@@ -92,9 +92,9 @@ function down () {
 class Plataform {
     constructor(b){
         this.bottom = b ;
-        this.left = Math.floor(Math.random() * 330);
+        this.left = Math.floor(Math.random() * 400);
         this.heigth = 10;
-        this.width = 70;
+        this.width = 100;
         this.element = document.createElement('div');
         this.speed = 15;
         //
