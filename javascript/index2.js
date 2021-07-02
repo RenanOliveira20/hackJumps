@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-const gameArea = document.querySelector('.game-area');
+const gameArea = document.querySelector('#my-game');
 const myStartGame = document.querySelector('.start-game');
 const element = document.createElement('div');
-let background = document.createElement('div');
-let thisFloor = document.createElement('div');
+const scoreDiv = document.createElement ('div');
+const background = document.createElement('div');
+const thisFloor = document.createElement('div');
 let timer ;
 let downTimer;
 let game; 
@@ -11,12 +12,32 @@ myStartGame.addEventListener('click', () => {
     refreshGame();
 });
 function refreshGame () {
+    createScore();
     createBackground();
     createFloor();
     createPerson();
     createPlataform();
     jump();
 };
+function createScore () {
+    let span1 = document.createElement('span');
+    let span2 = document.createElement('span');
+    gameArea.appendChild(scoreDiv);
+    scoreDiv.setAttribute('id','score');
+    scoreDiv.appendChild(span1);
+    span1.setAttribute('class', 'scores');
+    span1.innerHTML = 'Score';
+    scoreDiv.appendChild(span2);
+    span2.setAttribute('id', 'value');
+    span2.innerHTML = 0;
+    let scoreValue = document.getElementById('value')
+    setInterval(function(){
+        scoreValue.innerHTML = totalScore
+    },10)
+    console.log(scoreDiv)
+}
+
+let totalScore = 0
 function createBackground (){
     gameArea.appendChild(background);
     background.classList.add('gaming');
@@ -32,7 +53,7 @@ const person ={
     },
     jumps : {
         maxHeigth: 150,
-        minHeigth: 50,
+        minHeigth: 15,
     },
     moveRigth () {
         person.atributes.personLeft += person.atributes.speed;
@@ -82,7 +103,7 @@ function jump () {
 function down () {
     clearInterval(timer);
     downTimer = setInterval(function () {
-        person.atributes.personBottom -= 5;
+        person.atributes.personBottom -= 4;
         element.style.bottom = person.atributes.personBottom + 'px';
         if(person.atributes.personBottom <= person.jumps.minHeigth){
             jump();
@@ -91,7 +112,7 @@ function down () {
             if(
                 (person.atributes.personBottom >= plt.bottom) &&
                 (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
-                (person.atributes.personLeft >= plt.left - 30) &&
+                (person.atributes.personLeft >= plt.left - 45) &&
                 (person.atributes.personLeft <= plt.left + plt.width)
             ){
                 if(person.atributes.personBottom < 400){
@@ -133,6 +154,7 @@ function deletePlataforms(){
         if(plt.bottom < 15){
             plt.element.remove();
             plataforms.shift();
+            totalScore += 15;
             createPlataform();
         };
     });
@@ -145,7 +167,7 @@ function movePlataforms () {
     plataforms.forEach (plt =>{
         if((person.atributes.personBottom >= plt.bottom) &&
         (person.atributes.personBottom <= plt.bottom + plt.heigth) &&
-        (person.atributes.personLeft >= plt.left - 30) &&
+        (person.atributes.personLeft >= plt.left - person.atributes.width) &&
         (person.atributes.personLeft <= plt.left + plt.width)){
             floor.bottom -= 15;
             thisFloor.style.bottom = floor.bottom + 'px';
@@ -185,5 +207,5 @@ game = setInterval(() => {
     };
     movePlataforms();
     deletePlataforms();
-}, 50);
+}, 10);
 });
