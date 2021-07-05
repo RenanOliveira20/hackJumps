@@ -108,32 +108,3 @@ p{
     border-left: 4px solid black;
     background-color: white;
 }
-.lose-background {
-    margin-top: 110px;
-    margin-left: 200px;
-    width: 540px;
-    height: 800px;
-    position: absolute;
-    background-image: url(http://1.bp.blogspot.com/-za_2jL0fPyw/T5RLviys9HI/AAAAAAAAAC8/kANBT_CCjJw/s1600/computer-system-failure.jpg);
-    background-size: 800px;
-    background-position-x: -125px;
-}
-.game-over-score{
-    width: 480px;
-    margin-top: 350px;
-    margin-left: 30px;
-    font-size: 50px;
-    color: rgb(134, 255, 154);
-    background-color: black;
-    border: 5px solid white;
-}
-
-
-.score-lose {
-    width: 270px;
-    margin-left: 100px;
-}
-.score-lose-value{
-   width: 270px; 
-   margin-left: 150px;
-}
