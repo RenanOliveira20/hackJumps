@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const gameBackground = document.querySelector('.game-area');
     const gameArea = document.querySelector('#my-game');
     const myStartGame = document.querySelector('.start-game');
     const element = document.createElement('div');
@@ -30,12 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDiv.appendChild(span2);
         span2.setAttribute('id', 'value');
         span2.innerHTML = 0;
-        let scoreValue = document.getElementById('value')
+        let scoreValue = document.getElementById('value');
         setInterval(function(){
-            scoreValue.innerHTML = totalScore
-        },10)
-        console.log(scoreDiv)
-    }
+            scoreValue.innerHTML = totalScore;
+        },10);
+    };
     
     let totalScore = 0
     function createBackground (){
@@ -56,13 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
             minHeigth: 15,
         },
         moveRigth () {
+            if(person.atributes.personLeft <= 540 - person.atributes.width){
             person.atributes.personLeft += person.atributes.speed;
             element.style.left = person.atributes.personLeft + 'px'
-        },
+        }},
         moveLeft () {
+            
+            if(person.atributes.personLeft > 0){
             person.atributes.personLeft -= person.atributes.speed;
             element.style.left = person.atributes.personLeft + 'px'
-        },
+        }
+    },
     };
     const floor = {
         width: 540,
@@ -154,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(plt.bottom < 15){
                 plt.element.remove();
                 plataforms.shift();
-                totalScore += 15;
+                totalScore += 5;
                 createPlataform();
             };
         });
@@ -199,13 +203,33 @@ document.addEventListener('DOMContentLoaded', () => {
         gameArea.remove(person);
         clearInterval(game);
     };
-    
+    function loseBackground (){
+        console.log('wiii')
+        let newGameArea = document.createElement('div');
+        let backgroundLose = document.createElement('div');
+        let scoreLose = document.createElement('div');
+        let span1 = document.createElement('span');
+        let span2 = document.createElement('span');
+        newGameArea.setAttribute('id', 'my-game');
+        gameBackground.appendChild(newGameArea);
+        backgroundLose.classList.add('lose-background');
+        newGameArea.appendChild(backgroundLose);
+        scoreLose . classList . add('game-over-score');
+        backgroundLose.appendChild(scoreLose);
+        scoreLose.appendChild(span1);
+        scoreLose.appendChild(span2);
+        span1.classList.add('score-lose');
+        span1.innerText = 'Score';
+        span2.classList.add('score-lose-value');
+        span2.innerHTML = totalScore;
+    }
     game = setInterval(() => {
         if(!youLose()){
         }else{
             deleteGame();
+            loseBackground();
         };
         movePlataforms();
         deletePlataforms();
-    }, 10);
+    }, 30);
     });
