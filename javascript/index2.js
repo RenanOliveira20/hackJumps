@@ -56,13 +56,17 @@ const person ={
         minHeigth: 15,
     },
     moveRigth () {
+        if(person.atributes.personLeft <= 540 - person.atributes.width){
         person.atributes.personLeft += person.atributes.speed;
         element.style.left = person.atributes.personLeft + 'px'
-    },
+    }},
     moveLeft () {
+        
+        if(person.atributes.personLeft > 0){
         person.atributes.personLeft -= person.atributes.speed;
         element.style.left = person.atributes.personLeft + 'px'
-    },
+    }
+},
 };
 const floor = {
     width: 540,
@@ -200,6 +204,7 @@ function deleteGame () {
     clearInterval(game);
 };
 function loseBackground (){
+    console.log('wiii')
     let newGameArea = document.createElement('div');
     let backgroundLose = document.createElement('div');
     let scoreLose = document.createElement('div');
