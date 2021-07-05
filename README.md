@@ -11,15 +11,16 @@
   Let's Play!
 ### Move Person :
 - Move Rigth:
-  tap 'D' or 'Arrow rigth' in your keyboard
+  tap 'D' or 'Arrow rigth' in your keyboard;
 - Move Left:
-  tap 'A' or 'Arrow left' in your keyboard
+  tap 'A' or 'Arrow left' in your keyboard.
 
-  ### Score :
-- Your score increases to your up your height
+### Score :.
 
-  ### Game Over : 
-- Don't miss plataform or your lose the game
+### Game Over : 
+- Don't miss plataform or your lose the game.
 
 #### You ready? Let's play !
   Go to game click [here](https://renanoliveira20.github.io/hackJumps/)
+
+##### Thanks for gaming!
